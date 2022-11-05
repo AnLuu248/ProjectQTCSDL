@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+// import Axios from 'axios'
+// import { useState } from 'react';
 import './App.css';
+import Login from './components/screen/user/Login';
+import Register from './components/screen/user/Register';
+import Nav from './components/screen/Nav';
+import QuestionForm from './components/screen/exam/QuestionForm';
+import CreateQuestionForm from './components/screen/exam/CreateQuestionForm';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ExamForm from './components/screen/exam/ExamForm';
+import Home from './components/screen/Home';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Nav></Nav>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>      
+        <Route path="/Login" element={<Login/>}></Route>      
+        <Route path="/Register"  element={<Register/>}></Route>
+        <Route path="/CreateExam"  element={<ExamForm/>}></Route>      
+        <Route path="/Question/CreateQuestion"  element={<CreateQuestionForm/>}></Route>      
+        <Route path="/Question"  element={<QuestionForm/>}></Route>      
+
+      </Routes>
+      
+    </BrowserRouter>
     </div>
-  );
+  )
+
 }
 
 export default App;

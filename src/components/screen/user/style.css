@@ -1,0 +1,21 @@
+
+.Formstyle{
+    align-content: center;
+    width: 500px;
+    margin: 10% auto;
+    
+    border: 1px solid;
+    padding: 50px;
+    box-shadow: 1px 3px 1px #ccc;
+}
+
+.Formcreatequestion{
+    align-content: center;
+    width: 1000px;
+    margin: 10% auto;
+
+    border: 1px solid;
+    padding: 50px;
+    box-shadow: 1px 3px 1px #ccc;
+}
+

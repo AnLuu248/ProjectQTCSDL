@@ -1,0 +1,25 @@
+.Homestyle{
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: center;
+    width: auto;
+    margin: 10% auto;
+    padding: 50px;
+
+}
+.title{
+    margin: 5% auto;
+    text-align: center;
+}
+
+
+.Examstyle{
+    display: flex;
+    
+    margin: auto;
+}
+
+.styleCard{
+    display: flex;
+    
+}
