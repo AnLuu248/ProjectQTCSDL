@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: column-reverse;
     align-content: center;
+    text-align: left;
     width: auto;
     margin: 10% auto;
     padding: 50px;
-
+    align-items: center;
 }
 .title{
     margin: 5% auto;

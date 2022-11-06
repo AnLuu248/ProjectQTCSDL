@@ -7,7 +7,7 @@ import { useState } from "react";
 import Axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import CloseButton from 'react-bootstrap/CloseButton';
+import { useParams, useNavigate } from "react-router-dom";
 
 
 export default function CreateQuestionForm() {
@@ -17,13 +17,16 @@ export default function CreateQuestionForm() {
   const [_answerC, setAnswerC] = useState("");
   const [_answerD, setAnswerD] = useState("");
   const [_rightanswer, setRightAnswer] = useState("");
+  
 
+const { id} = useParams();
+const navigate = useNavigate();
   const addQuestion = () =>{
     Axios.post("http://localhost:3001/create",
      {
       tablename: "question",
       fieldname: {
-        // idexam: 
+        idexam: id,
         contentquestion: _contentquestion,
         a: _answerA,
         b:_answerB,
@@ -32,7 +35,8 @@ export default function CreateQuestionForm() {
         rightanswer: _rightanswer
       }
      }).then(() =>{
-      console.log("success");
+      // navigate("/Question/" + id)
+      console.log("summit")
      });
   }
 
@@ -91,7 +95,7 @@ export default function CreateQuestionForm() {
         <Row>
           <Col>
             <div className="d-grid gap-2">
-              <Button onClick={addQuestion} variant="primary" type="button" href="/Question">
+              <Button onClick={addQuestion} variant="primary">
                 Create
               </Button>
             </div>

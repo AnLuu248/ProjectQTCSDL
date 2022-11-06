@@ -6,19 +6,52 @@ import { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./style.css";
-import { Axios } from "axios";
+import Axios from "axios";
+import {useNavigate} from 'react-router-dom';
+import { useGlobalState, createStore} from 'state-pool';
+
+import store from "../Store";
+
 function Login() {
+
   const [_username, setUsername] = useState("");
   const [_password, setPassword] = useState("");
-  const [_user, setUser] = useState([]);
   
+  const [_checkuser, setCheckuser] = useState(false)
+  
+  const [_user, setUser] = store.useState("user");
+  const [userlogin, setUserLogin] = store.useState("userlogin");
 
-  const Login = () =>{
-    Axios.get("http://localhost:3001/fetch?tablename=user").then((response) =>{
-      setUser(response.data);
-    console.log("success");
-     });
+  const navigate = useNavigate();
+
+  async function Login() {
+    const res = await  Axios.post("http://localhost:3001/login",
+    {
+        username: _username,
+        password: _password
+    });
+    if(res.data === true){
+      setCheckuser(true);
+      setUserLogin(true);
+      setUser(_username);
+      navigate("/");
+    }else{
+      setCheckuser(false)
+    }
+    if (!res) {
+      console.log("co loi ne")
+    }
+    
+
+    
   }
+  console.log(userlogin);
+  // Login().then((data, callback) => {
+    
+  //   callback(response.json({ message: 'Request received!', data }))
+
+  // }).catch(err => console.log(err))
+ 
   return (
     <div className="Formstyle">
       <Form>
@@ -50,8 +83,9 @@ function Login() {
         <Row>
           <Col>
             <div className="d-grid gap-2">
-              <Button onClick={Login} variant="primary" type="submit">
-                Login
+             <Button onClick={Login}
+              variant="primary" type="button">
+                "Login"
               </Button>
             </div>
           </Col>

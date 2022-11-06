@@ -7,21 +7,45 @@ import Row from 'react-bootstrap/Row';
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import Exam from "./exam/Exam";
+import { useGlobalState, createStore} from 'state-pool';
+import {Link, useNavigate} from 'react-router-dom';
+
 import "./Home.css";
+
+import store from "./Store";
+
 export default function Home() {
 
-  const [aaaaa, setExamList] = useState([]);
-
-  const getExam = () => {
+  const userlogin = store.getState("userlogin").value;
+  const examid = store.getState("examid").value;
+  const [_examlist, setExamList] = useState([]);
+  const navigate = useNavigate();
+  const getExamList = () => {
     Axios.get("http://localhost:3001/fetch?tablename=exam").then((response) => {
       setExamList(response.data);
       console.log(response.data);
+      
+        
+
     });
   };
+  
+  const getExam = (id) =>{
+    const path = "/Question/" + id
+    if(userlogin){
+      navigate(path)
+    }else{
+      navigate("/Login")
+    }
+  }
 
   useEffect(() => {
-    // getExam();
-  })
+    getExamList();
+    // <Exam/>
+    // if (userlogin === false){
+    //   navigate("/Login")
+    // }
+  },[])
 
   const TableHeaderRow = () => {
     return <tr><th>Id</th><th>Name</th><th>Question</th><th>Time</th></tr>;
@@ -29,16 +53,23 @@ export default function Home() {
   
   const TableRow = ({data}) => {
     return data.map((data) =>
-      <tr>
-        <td>{data.idexam}</td><td>{data.name}</td><td>{data.numberquestion}</td><td>{data.time}</td><td><Button variant="primary" type="button" href="/Question">go</Button></td>
-      </tr>
+        
+        <Card style={{ width: "100vh", margin:"1%" , height: "150px"}}>
+          <Card.Body>
+            <Card.Title>{data.name},{data.idexam}</Card.Title>
+            <Button onClick={()=>{getExam(data.idexam)}} variant="primary" type="button" >
+              GoGo
+            </Button>
+          </Card.Body>
+          
+        </Card>
     );
   }
   
   const Table = ({data}) => {
     return (
       <table>
-        <TableHeaderRow />
+        
         <TableRow data={data} />
       </table>
     );
@@ -52,11 +83,11 @@ export default function Home() {
     <Row xs={1} md={2} className="g-2">
       
         <Col>
-          <Exam/>
+          <Table data={_examlist} />;
         </Col>
       
     </Row>
-    <Table data={aaaaa} />;
+    
     </div>
     </div>
   );
