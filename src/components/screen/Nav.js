@@ -19,7 +19,7 @@ export default function Navjs() {
   return (  
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Link to="/"> Navbar scroll</Link>
+        <Navbar.Brand><Link to="/" > Navbar scroll</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav

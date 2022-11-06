@@ -12,7 +12,7 @@ import Home from './components/screen/Home';
 
 function App() {
   return (
-    <div style={{ height:"100vh"}}>
+    <div style={{ height:"100%"}}>
       
     <BrowserRouter>
     <Nav></Nav>

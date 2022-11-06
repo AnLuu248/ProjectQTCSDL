@@ -13,9 +13,10 @@ export default function QuestionForm() {
   const {id} = useParams();
   
   const [_questions, setQuestions] = useState([]);
+  const [_checkanswer, setCheckAnswer] = useState([]);
   const userlogin = store.getState("userlogin").value;
-  const examid = store.getState("examid").value;
-  console.log(examid)
+
+
   const navigate = useNavigate();
   console.log(userlogin);
   useEffect(() => {
@@ -23,6 +24,14 @@ export default function QuestionForm() {
       navigate("/Login");
     }
   });
+
+  const { answer} = _checkanswer;
+const handleCheckanswer = () =>{
+
+}
+const handleSubmit = () =>{
+  console.log(_checkanswer)
+}
   const getQuestions = () => {
     Axios.get("http://localhost:3001/fetch?tablename=question").then(
       (response) => {
@@ -45,40 +54,54 @@ export default function QuestionForm() {
         
         {data.contentquestion}
       </Card.Title>
-      <Form>
+      <Form >
         {["radio"].map((type) => (
-          <div key={`inline-${type}`} className="mb-3">
+          <div key={`${type}`} className="mb-3">
             <Form.Check
-              inline
+              
               label={data.a}
               name="group1"
               type={type}
-              id={`inline-${type}-1`}
+              id={`${type}-1`}
+              onChange={() => {
+                setCheckAnswer(data.rightanswer)
+              }}
             />
             <Form.Check
-              inline
+              
               label={data.b}
               name="group1"
               type={type}
-              id={`inline-${type}-2`}
+              id={`${type}-2`}
+              onChange={() => {
+                setCheckAnswer(data.rightanswer)
+              }}
+
+
             />
             <Form.Check
-              inline
+              
               label={data.c}
               name="group1"
               type={type}
-              id={`inline-${type}-2`}
+              id={`${type}-3`}
+              onChange={handleCheckanswer}
+
+
             />
             <Form.Check
-              inline
+              
               label={data.d}
               name="group1"
               type={type}
-              id={`inline-${type}-2`}
+              id={`${type}-4`}
+              onChange={handleCheckanswer}
+
             />
           </div>
         ))}
       </Form>
+      
     </Card.Body>
   </Card>
     );
@@ -95,6 +118,7 @@ export default function QuestionForm() {
     <div>
       <Button href={path} >+</Button>
       <Table data={_questions} />;
+      <Button onClick={handleSubmit} type="submit" >submit</Button>
     </div>
   );
 }
