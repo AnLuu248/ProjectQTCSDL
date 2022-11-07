@@ -4,15 +4,18 @@
     align-content: center;
     text-align: left;
     width: auto;
-    margin: 10% auto;
+    margin:  auto;
     padding: 50px;
     align-items: center;
 }
 .title{
-    margin: 5% auto;
+    background-color: #6D9886;
+    padding: 10%;
     text-align: center;
 }
-
+.backgroundTitle{
+    background-color: #F7F7F7;
+}
 
 .Examstyle{
     display: flex;
@@ -20,7 +23,3 @@
     margin: auto;
 }
 
-.styleCard{
-    display: flex;
-    
-}

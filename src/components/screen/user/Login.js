@@ -19,9 +19,9 @@ function Login() {
   
   const [_checkuser, setCheckuser] = useState(false)
   
-  const [_user, setUser] = store.useState("user");
+  
   const [userlogin, setUserLogin] = store.useState("userlogin");
-
+  const [nameuser, setNameUser] = store.useState("nameuser")
   const navigate = useNavigate();
 
   async function Login() {
@@ -33,7 +33,8 @@ function Login() {
     if(res.data === true){
       setCheckuser(true);
       setUserLogin(true);
-      setUser(_username);
+      setNameUser(_username)
+      
       navigate("/");
     }else{
       setCheckuser(false)

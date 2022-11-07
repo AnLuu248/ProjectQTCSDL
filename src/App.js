@@ -10,14 +10,19 @@ import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import ExamForm from './components/screen/exam/ExamForm';
 import Home from './components/screen/Home';
 
+import store from './components/screen/Store';
 function App() {
+
+  const userlogin = store.getState("userlogin").value;
+
+
   return (
     <div style={{ height:"100%"}}>
       
     <BrowserRouter>
-    <Nav></Nav>
+    <Nav req = {userlogin}></Nav>
       <Routes>
-
+      
         <Route path="/"  element={<Home/>}></Route>      
         <Route path="/Login" element={<Login/>}></Route>      
         <Route path="/Register"  element={<Register/>}></Route>

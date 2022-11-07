@@ -10,12 +10,13 @@ import Exam from "./exam/Exam";
 import { useGlobalState, createStore} from 'state-pool';
 import {Link, useNavigate} from 'react-router-dom';
 
+
 import "./Home.css";
 
 import store from "./Store";
 
 export default function Home() {
-
+  const nameuser = store.getState("nameuser").value;
   const userlogin = store.getState("userlogin").value;
   const examid = store.getState("examid").value;
   const [_examlist, setExamList] = useState([]);
@@ -28,7 +29,7 @@ export default function Home() {
         
 
     });
-  };
+  }
   
   const getExam = (id) =>{
     const path = "/Question/" + id
@@ -56,7 +57,7 @@ export default function Home() {
         
         <Card style={{ width: "100vh", margin:"1%" , height: "150px"}}>
           <Card.Body>
-            <Card.Title>{data.name},{data.idexam}</Card.Title>
+            <Card.Title>{data.name}</Card.Title>
             <Button onClick={()=>{getExam(data.idexam)}} variant="primary" type="button" >
               GoGo
             </Button>
@@ -76,14 +77,20 @@ export default function Home() {
   }
 
   return (
-  <div className="title">
-    <h2>Chao mung tui m da den voi bai kiem tra :))</h2>
+    
+  <div className="backgroundTitle" >
+        
+
+    <div className="title">
+        <h1>Welcome {nameuser}</h1>
+    </div>
+    
     
     <div className="Homestyle">
     <Row xs={1} md={2} className="g-2">
       
         <Col>
-          <Table data={_examlist} />;
+          <Table data={_examlist} />
         </Col>
       
     </Row>

@@ -13,7 +13,8 @@ export default function QuestionForm() {
   const {id} = useParams();
   
   const [_questions, setQuestions] = useState([]);
-  const [_checkanswer, setCheckAnswer] = useState([]);
+  const [_checkanswer, setCheckAnswer] = useState("");
+  const [_idquestion, setIdQuestion] = useState("")
   const userlogin = store.getState("userlogin").value;
 
 
@@ -26,8 +27,17 @@ export default function QuestionForm() {
   });
 
   const { answer} = _checkanswer;
-const handleCheckanswer = () =>{
-
+const deleteBtn = (data) =>{
+  setIdQuestion(data)
+  Axios.post("http://localhost:3001/delete",{
+    tablename: "question",
+    fieldname: {
+      idquestion: _idquestion,
+      checkdelete: true
+    }
+  }).then(() =>{
+    console.log(_idquestion)
+  });
 }
 const handleSubmit = () =>{
   console.log(_checkanswer)
@@ -64,7 +74,8 @@ const handleSubmit = () =>{
               type={type}
               id={`${type}-1`}
               onChange={() => {
-                setCheckAnswer(data.rightanswer)
+                setCheckAnswer(data.a)
+                setIdQuestion(data.idquestion)
               }}
             />
             <Form.Check
@@ -74,7 +85,8 @@ const handleSubmit = () =>{
               type={type}
               id={`${type}-2`}
               onChange={() => {
-                setCheckAnswer(data.rightanswer)
+                setCheckAnswer(data.b)
+                setIdQuestion(data.idquestion)
               }}
 
 
@@ -85,7 +97,10 @@ const handleSubmit = () =>{
               name="group1"
               type={type}
               id={`${type}-3`}
-              onChange={handleCheckanswer}
+              onChange={() => {
+                setCheckAnswer(data.c)
+                setIdQuestion(data.idquestion)
+              }}
 
 
             />
@@ -95,13 +110,16 @@ const handleSubmit = () =>{
               name="group1"
               type={type}
               id={`${type}-4`}
-              onChange={handleCheckanswer}
+              onChange={() => {
+                setCheckAnswer(data.d)
+                setIdQuestion(data.idquestion)
+              }}
 
             />
           </div>
         ))}
       </Form>
-      
+      <Button onClick={() => {deleteBtn(data.idquestion)}} >delete</Button>
     </Card.Body>
   </Card>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -11,15 +11,17 @@ import { Link } from "react-router-dom";
 import store from "./Store";
 
 
-export default function Navjs() {
-
+export default function Navjs(req) {
+  const [checkuserlogin, setCheckUserLogin] = useState("")
 
 
   const userlogin = store.getState("userlogin").value;
+  const nameuser = store.getState("nameuser").value;
+ console.log(req)
   return (  
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand><Link to="/" > Navbar scroll</Link></Navbar.Brand>
+        <Navbar.Brand><Link style={{textDecoration: "none", color: "#ccc"}} to="/" >CTU</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -27,18 +29,10 @@ export default function Navjs() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link><Link style={{textDecoration: "none", color: "#ccc"}} to="/" >Home</Link></Nav.Link>
             
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link><Link style={{textDecoration: "none", color: "#ccc"}} to="/CreateExam" >Create Exam</Link></Nav.Link>
+            
 
           </Nav>
           <Form className="d-flex">
@@ -52,9 +46,9 @@ export default function Navjs() {
           </Form>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          {(userlogin===true) ? (
+          {(req.req)  ? (
             <Navbar.Text>
-              <a>wellcome </a>
+              <a>wellcome {nameuser} </a>
               <a href="/Login">Logout</a>
             </Navbar.Text>
           ) : (
